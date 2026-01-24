@@ -93,8 +93,8 @@ if not df_input.empty and df_input.shape[1] >= 2:
                 
                 # Ecuación de la recta
                 sign = "+" if intercept >= 0 else "-"
-                st.latex(f"\\Delta X = {slope:.4f} (-\\Delta S) {sign} {abs(intercept:.4f)}")
-
+                st.latex(f"\\Delta X = {slope:.4f} (-\\Delta S) {sign} {abs(intercept):.4f}")
+                
             with col2:
                 st.write("### Gráfico de Correlación")
                 fig, ax = plt.subplots()
