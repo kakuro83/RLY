@@ -1,8 +1,6 @@
 # 🧫 Taller de Cinética Microbiana – Modelo de Monod en Streamlit
 
-Esta aplicación en **Streamlit** resuelve un ejercicio práctico de cinética microbiana para determinar el **potencial fermentativo** de un consorcio microbiano usando **lactosa como sustrato**.
-
-El flujo del programa replica paso a paso el planteamiento típico de un curso de **bioprocesos / ingeniería bioquímica**, integrando análisis de datos experimentales, ajuste cinético y predicción.
+> ⚠️ **Nota sobre LaTeX en README**: GitHub **no renderiza LaTeX/MathJax** en archivos `README.md`. Por eso, las ecuaciones se presentan abajo en **formato texto** (compatible). En la app de Streamlit **sí** se muestran con LaTeX.
 
 ---
 
@@ -10,9 +8,9 @@ El flujo del programa replica paso a paso el planteamiento típico de un curso d
 
 A partir de datos experimentales de tiempo, biomasa y sustrato:
 
-1. **Calcular el rendimiento biomasa/sustrato** (Y_{X/S}) mediante regresión lineal.
-2. **Estimar las constantes cinéticas de Monod** (\mu_{max}) y (K_s) usando datos diferenciales por intervalos.
-3. **Predecir la concentración de biomasa** en el tiempo resolviendo una ecuación diferencial en función de (X).
+1. Calcular el **rendimiento biomasa/sustrato** (Yx/s) mediante regresión lineal.
+2. Estimar las **constantes cinéticas de Monod** (μmax y Ks) usando datos diferenciales por intervalos.
+3. **Predecir la concentración de biomasa** en el tiempo resolviendo una ecuación diferencial en función de X.
 4. Calcular la **biomasa total producida** en un biorreactor de volumen definido.
 
 ---
@@ -25,24 +23,17 @@ La app requiere una tabla con las siguientes columnas:
 * **X**: concentración de biomasa (g/L)
 * **S**: concentración de sustrato (g/L)
 
-Los datos pueden:
-
-* editarse directamente en la interfaz,
-* o cargarse usando el conjunto de datos de ejemplo incluido (correspondiente al taller).
+Los datos pueden editarse directamente en la interfaz o cargarse usando el conjunto de datos de ejemplo.
 
 ---
 
-## 🧠 Modelo y ecuaciones
+## 🧠 Modelo y ecuaciones (formato compatible con GitHub)
 
 ### 1) Rendimiento biomasa/sustrato
 
-Se asume una relación lineal entre biomasa producida y sustrato consumido:
+Yx/s = ΔX / (−ΔS)
 
-[
-Y_{X/S} = \frac{\Delta X}{-\Delta S}
-]
-
-El parámetro se obtiene por **regresión lineal** de (\Delta X) vs (-\Delta S).
+El parámetro se obtiene por **regresión lineal** de ΔX vs (−ΔS).
 
 ---
 
@@ -50,21 +41,17 @@ El parámetro se obtiene por **regresión lineal** de (\Delta X) vs (-\Delta S).
 
 Para cada intervalo experimental:
 
-[
-\mu_{obs} = \frac{1}{X_{prom}},\frac{\Delta X}{\Delta t}
-]
+μ_obs = (1 / X_prom) · (ΔX / Δt)
 
 con:
 
-[
-X_{prom} = \frac{X_i + X_f}{2}, \qquad S_{prom} = \frac{S_i + S_f}{2}
-]
+X_prom = (X_i + X_f) / 2
 
-La ecuación de Monod se ajusta usando (S_{prom}):
+S_prom = (S_i + S_f) / 2
 
-[
-\mu(S_{prom}) = \mu_{max},\frac{S_{prom}}{K_s + S_{prom}}
-]
+La ecuación de Monod se ajusta usando S_prom:
+
+μ(S_prom) = μ_max · S_prom / (K_s + S_prom)
 
 El ajuste se realiza por **regresión no lineal**.
 
@@ -72,29 +59,23 @@ El ajuste se realiza por **regresión no lineal**.
 
 ### 3) Predicción de biomasa
 
-La evolución de la biomasa se modela con una ecuación diferencial en función de (X), sustituyendo el sustrato mediante el balance con el rendimiento:
+La evolución de la biomasa se modela con una ecuación diferencial en función de X, sustituyendo el sustrato mediante el balance con el rendimiento:
 
-[
-\frac{dX}{dt} = \mu_{max}X,\frac{Y_{X/S}S_0 + X_0 - X}{Y_{X/S}S_0 + Y_{X/S}K_s + X_0 - X}
-]
+dX/dt = μ_max · X · (Yx/s · S0 + X0 − X) / (Yx/s · S0 + Yx/s · K_s + X0 − X)
 
 con condición inicial:
 
-[
-X(0) = X_0
-]
+X(0) = X0
 
-La ecuación se resuelve numéricamente para predecir (X(t)).
+La ecuación se resuelve numéricamente para predecir X(t).
 
 ---
 
 ## 🧪 Salidas del programa
 
-La aplicación entrega:
-
-* Valor de **(Y_{X/S})** y estadísticos de la regresión.
-* Estimación de **(\mu_{max})** y **(K_s)**.
-* Tabla detallada por intervalos ((\Delta X), (\Delta t), (X_{prom}), (S_{prom}), (\mu_{obs})).
+* Valor de **Yx/s** y estadísticos de la regresión.
+* Estimación de **μ_max** y **K_s**.
+* Tabla detallada por intervalos (ΔX, Δt, X_prom, S_prom, μ_obs).
 * Gráficas de ajuste y predicción.
 * Biomasa final y biomasa total producida en el biorreactor.
 * Exportación de resultados en formato **CSV**.
