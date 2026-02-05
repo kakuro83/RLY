@@ -36,7 +36,8 @@ st.latex(r"Y_{X/S}=\frac{\Delta X}{-\Delta S}")
 
 st.markdown("**2) Cinética (por intervalos + ajuste no lineal Monod):**")
 st.latex(r"\mu_{obs}=\frac{1}{X_{prom}}\,\frac{\Delta X}{\Delta t}")
-st.latex(r"\mu\!\left(S_{prom}\right) = \mu_{max}\,\frac{S_{prom}}{K_s + S_{prom}")
+st.latex(r"\mu\!\left(S_{prom}\right)=\mu_{max}\,\frac{S_{prom}}{K_s + S_{prom}}")
+st.latex(r"S_{prom}=\frac{S_i+S_f}{2}")
 
 st.markdown("**3) Predicción de biomasa (ecuación en función de X):**")
 st.latex(
