@@ -28,30 +28,19 @@ st.caption(
 )
 
 # Bloque de ecuaciones: mejor render (evita backslashes rotos)
-st.markdown(
-    r"""
-### Modelo y ecuaciones
+# Bloque de ecuaciones: usar st.latex (más estable que markdown para el taller)
+st.markdown("### Modelo y ecuaciones")
 
-**1) Rendimiento (por regresión lineal):**
+st.markdown("**1) Rendimiento (por regresión lineal):**")
+st.latex(r"Y_{X/S}=\frac{\Delta X}{-\Delta S}")
 
-$$
-Y_{X/S}=\\frac{\\Delta X}{-\\Delta S}
-$$
+st.markdown("**2) Cinética (por intervalos + ajuste no lineal Monod):**")
+st.latex(r"\mu_{obs}=\frac{1}{X_{prom}}\,\frac{\Delta X}{\Delta t}")
+st.latex(r"\mu(S)=\mu_{max}\,\frac{S}{K_s+S}")
 
-**2) Cinética (por intervalos + ajuste no lineal Monod):**
-
-$$
-\\mu_{obs}=\\frac{1}{X_{prom}}\\,\\frac{\\Delta X}{\\Delta t}, \\qquad
-\\mu(S)=\\mu_{max}\\,\\frac{S}{K_s+S}
-$$
-
-**3) Predicción de biomasa (ecuación en función de X):**
-
-$$
-\\frac{dX}{dt}=\\mu_{max}X\\,\\frac{Y_{X/S}S_0+X_0-X}{Y_{X/S}S_0+Y_{X/S}K_s+X_0-X}
-$$
-""",
-    unsafe_allow_html=False,
+st.markdown("**3) Predicción de biomasa (ecuación en función de X):**")
+st.latex(
+    r"\frac{dX}{dt}=\mu_{max}X\,\frac{Y_{X/S}S_0+X_0-X}{Y_{X/S}S_0+Y_{X/S}K_s+X_0-X}"
 )
 
 # ----------------------------
